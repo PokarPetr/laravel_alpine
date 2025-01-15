@@ -43,6 +43,13 @@ services:
     volumes:
     - ./src:/var/www/laravel
     entrypoint: ["php", "/var/www/laravel/artisan"]
+
+  node:
+    image: node:current-alpine
+    volumes:
+      - ./src:/var/www/laravel
+    working_dir: /var/www/laravel
+
   
 volumes:
   db_data:
