@@ -1,8 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-h1.hello {
-	font-size: 35px;
-	color: #fff;
-	text-align: center;
-}
