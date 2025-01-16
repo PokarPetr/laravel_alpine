@@ -1,6 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TicketFlightController;
+use App\Http\Controllers\FlightController;
+use App\Http\Controllers\BoardingPassController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\AircraftController;
+use App\Http\Controllers\AirportController;
+use App\Http\Controllers\SeatController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,5 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource('bookings', BookingController::class);
+Route::resource('tickets', TicketController::class);
+Route::resource('ticket_flights', TicketFlightController::class);
+Route::resource('boarding_passes', BoardingPassController::class);
+Route::resource('aircrafts', AircraftController::class);
+Route::resource('airports', AirportController::class);
+Route::resource('flights', FlightController::class);
+Route::resource('seats', SeatController::class);
 
 require __DIR__.'/auth.php';
