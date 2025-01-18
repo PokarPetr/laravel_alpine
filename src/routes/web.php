@@ -12,7 +12,11 @@ use App\Http\Controllers\SeatController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $airports = DB::table('airports')->get();
+    $airport_mod = DB::select('SELECT airport_code, airport_name, city, ROUND(ST_Distance(coordinates, (SELECT coordinates FROM airports WHERE airport_code="TGD")) / 1000) as distance_in_meters FROM airports WHERE airport_code!="TGD" ORDER BY distance_in_meters');
+   
+    return view('welcome', compact('airport_mod'));
 });
 
 Route::get('/hello', function () {

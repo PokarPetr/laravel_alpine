@@ -9,3 +9,4 @@ nginxdown:
 
 artisan-migrate:
 	sudo docker-compose run --rm artisan migrate
+	
