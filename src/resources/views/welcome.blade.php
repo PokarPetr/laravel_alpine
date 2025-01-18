@@ -73,10 +73,37 @@
                                 </div>
                             @endforeach
                         </div>
+                        <br><br>
+                        <h1 class="hello" >Enable Aircrafts</h1><br>
+                        <div >
+                            <div class="aircraft-list">
+                                    <span>Code</span>
+                                    <span>Model</span>
+                                    <span></span>
+                                    <span>Max range</span>
+                                    <span></span>
+                            </div>
+                            @foreach ($aircrafts as $aircraft)
+                                <div class="aircraft-list">
+                                    <span>{{ $aircraft->aircraft_code }}</span>
+                                    <span>{{ $aircraft->model }}</span>
+                                    <span></span>
+                                    <span>{{ $aircraft->range }} km</span>
+                                </div>
+                            @endforeach
+                        </div>
                         <style>
                             .airport-list {
                                 display: grid;
-                                grid-template-columns: 30px 350px 30px 150px 30px 150px; 
+                                grid-template-columns: 70px 350px 30px 150px 30px 150px; 
+                                gap: 10px; 
+                                font-family: Arial, sans-serif;
+                                margin-top: 5px;
+                            }
+
+                            .aircraft-list {
+                                display: grid;
+                                grid-template-columns: 70px 250px 30px 85px; 
                                 gap: 10px; 
                                 font-family: Arial, sans-serif;
                                 margin-top: 5px;

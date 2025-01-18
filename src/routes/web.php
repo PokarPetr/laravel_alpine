@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $airports = DB::table('airports')->get();
+    $aircrafts = DB::table('aircrafts')->get();
     $airport_mod = DB::select('SELECT airport_code, airport_name, city, ROUND(ST_Distance(coordinates, (SELECT coordinates FROM airports WHERE airport_code="TGD")) / 1000) as distance_in_meters FROM airports WHERE airport_code!="TGD" ORDER BY distance_in_meters');
    
-    return view('welcome', compact('airport_mod'));
+    return view('welcome', compact('airport_mod', 'aircrafts'));
 });
 
-Route::get('/hello', function () {
-    return view('hello');
+Route::get('/home', function () {
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
