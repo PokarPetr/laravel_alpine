@@ -74,7 +74,7 @@
                             @endforeach
                         </div>
                         <br><br>
-                        <h1 class="hello" >Enable Aircrafts</h1><br>
+                        <h1 class="hello" >Available Aircrafts</h1><br>
                         <div >
                             <div class="aircraft-list">
                                     <span>Code</span>
