@@ -8,80 +8,51 @@ Before getting started, make sure you have the following tools installed:
 
 - Docker
 - Docker Compose
-- Make (for executing commands)
+- Make
 
 ## Installation and Setup
 
-1. **Install dependencies:**
+1. **Check if Docker and Docker Compose are installed:**
 
-    Before running the application, make sure all required dependencies are installed. To do so, execute the following command:
+   Ensure that Docker and Docker Compose are installed on your machine.
 
-    ```bash
-    docker-compose run --rm composer install
-    ```
+2. **Clone the repository:**
 
-    This command will install the dependencies specified in your composer.json file.
+   Clone this GitHub repository to your local machine.
 
-2. **Start the containers using Make:**
+3. **Navigate to the project folder:**
 
-    In the project root directory, execute the command:
+   Go to the project directory:
 
-    ```bash
-    make nginxup
-    ```
+   ```bash
+   cd laravel_alpine
+   ```
+4. **Run the installation command using Make:**
 
-    This command will start the Nginx, MySQL, and PHP containers. Make sure that the `Makefile` is present in the project root and is configured to run containers via `docker-compose`.
-
-		**If you don’t have `make` installed**, you can run the following command instead:
-
-		 ```bash
-		 sudo docker-compose up -d nginx
-		 ```
-
-
-3. **Run database migrations:**
-
-    To run Laravel database migrations, execute:
+    Run the following command to install and set up everything:
 
     ```bash
-    make artisan-migrate
+   make start-install
+
     ```
 
-		OR
+   If you don’t have make installed, you can run the following commands manually:
 
-		```bash
-    sudo docker-compose run --rm artisan migrate
+   ```bash
+        mkdir -p ./src/storage/framework/views
+        mkdir -p ./src/storage/framework/sessions
+        mkdir -p ./src/storage/framework/cache
+        chown -R $(whoami):$(whoami) ./src/storage
+        chmod -R 777 ./src/storage
+        docker-compose run --rm composer install
+        docker-compose up -d nginx
+        docker-compose run --rm artisan migrate
+        docker-compose run --rm artisan db:seed --class=SeatsSeeder
+        docker-compose run --rm artisan db:seed --class=AirportsSeeder
+        docker-compose run --rm artisan db:seed --class=AircraftsSeeder
     ```
 
-    This command will run the `php artisan migrate` command to perform database migrations.
-
-4. **Seed database :**
-
-    To seed the database with primary data, execute:
-
-    ```bash
-    make artisan-db-seed
-    ```
-
-		OR
-
-		```bash
-    sudo docker-compose run --rm artisan db:seed
-    ```
-
-    This command will populate the database with data using the seeders.
-
-5. **Fix permissions for the `storage` directory:**
-
-    If you encounter permission issues with the `storage` directory (for example, if Laravel can't write to `storage`), execute the following command:
-
-    ```bash
-    sudo chmod 777 -R ./src/storage
-    ```
-
-    This command will set the appropriate permissions for the `storage` folder to allow writing.
-
-6. **Access the application:**
+5. **Access the application:**
 
     After the containers are up and running, the application will be available at:
 
@@ -113,74 +84,47 @@ Before getting started, make sure you have the following tools installed:
 - Make (для выполнения команд)
 
 ## Установка и запуск
-1. **Установка зависимостей:**
 
-    Прежде чем запускать приложение, убедитесь, что все необходимые зависимости установлены. Для этого выполните следующую команду:
+1. ## Проверьте наличие установленных Docker и Docker Compose:
+
+    Убедитесь, что Docker и Docker Compose установлены на вашей машине.
+
+2. ## Клонируйте репозиторий:
+
+    Клонируйте этот репозиторий с GitHub на вашу локальную машину.
+
+3. ## Перейдите в папку проекта:
+
+    Перейдите в папку проекта:
+
+     ```bash
+   cd laravel_alpine
+    ```
+4. ## Запустите команду установки с помощью Make:
+
+    Выполните следующую команду для установки и настройки всего:
 
     ```bash
-    docker-compose run --rm composer install
+   make start-install
 
     ```
-    Эта команда установит зависимости, указанные в вашем файле composer.json. 
-
-2. **Запуск контейнеров с помощью Make:**
-
-    В корне проекта выполните команду:
+    Если утилита make не установлена, выполните команды вручную:
 
     ```bash
-    make nginxup
+        mkdir -p ./src/storage/framework/views
+        mkdir -p ./src/storage/framework/sessions
+        mkdir -p ./src/storage/framework/cache
+        chown -R $(whoami):$(whoami) ./src/storage
+        chmod -R 777 ./src/storage
+        docker-compose run --rm composer install
+        docker-compose up -d nginx
+        docker-compose run --rm artisan migrate
+        docker-compose run --rm artisan db:seed --class=SeatsSeeder
+        docker-compose run --rm artisan db:seed --class=AirportsSeeder
+        docker-compose run --rm artisan db:seed --class=AircraftsSeeder
     ```
 
-    Эта команда поднимет контейнеры для Nginx, MySQL и PHP. Убедитесь, что файл `Makefile` присутствует в корне проекта и настроен для запуска контейнеров через `docker-compose`.
-
-	*Если `make` не установлен**, используйте:
-
-		 ```bash
-		 sudo docker-compose up -d nginx
-		 ```
-
-3. **Выполнение миграции базы данных:**
-
-    Для выполнения миграций Laravel выполните команду:
-
-    ```bash
-    make artisan-migrate
-    ```
-
-		или
-
-		```bash
-    sudo docker-compose run --rm artisan migrate
-    ```
-
-    Эта команда запускает миграции базы данных с использованием `php artisan migrate`.
-4. **Наполнение базы данных первичными данными :**
-
-    Для наполнения базы данных выполните команду:
-
-    ```bash
-    make artisan-db-seed
-    ```
-
-		OR
-
-		```bash
-    sudo docker-compose run --rm artisan db:seed
-    ```
-
-    Эта команда запускает сидеры для наполнения базы данных.
-
-5. **Исправление прав на директорию `storage`:**
-
-    В случае возникновения проблем с правами на директории (например, если Laravel не может записывать в `storage`), выполните следующую команду:
-
-    ```bash
-    sudo chmod 777 -R ./src/storage
-    ```
-
-    Эта команда установит необходимые права на папку `storage` для записи файлов.
-
-6. **Доступ к приложению:**
+5. **Доступ к приложению:**
 
     После того, как контейнеры запустятся, приложение будет доступно по следующему адресу:
 
@@ -196,3 +140,4 @@ Before getting started, make sure you have the following tools installed:
 
     ```bash
     make nginxdown
+    ```
