@@ -12,13 +12,15 @@ Before getting started, make sure you have the following tools installed:
 
 ## Installation and Setup
 
-1. **Pull the Docker image:**
+1. **Install dependencies:**
 
-    If you haven't cloned the repository from Docker Hub yet, run the following command:
+    Before running the application, make sure all required dependencies are installed. To do so, execute the following command:
 
     ```bash
-    docker pull pokarpetrdeveloper/laravel_hello
+    docker-compose run --rm composer install
     ```
+
+    This command will install the dependencies specified in your composer.json file.
 
 2. **Start the containers using Make:**
 
@@ -91,11 +93,11 @@ Before getting started, make sure you have the following tools installed:
 
 ## Stopping the Containers
 
-To stop the containers, run:
+    To stop the containers, run:
 
-```bash
-make nginxdown
-```
+    ```bash
+    make nginxdown
+    ```
 
 
 # Laravel Hello
@@ -111,14 +113,15 @@ make nginxdown
 - Make (для выполнения команд)
 
 ## Установка и запуск
+1. **Установка зависимостей:**
 
-1. **Клонируйте репозиторий:**
-
-    Если вы еще не клонировали репозиторий с Docker Hub, выполните команду:
+    Прежде чем запускать приложение, убедитесь, что все необходимые зависимости установлены. Для этого выполните следующую команду:
 
     ```bash
-    docker pull pokarpetrdeveloper/laravel_hello
+    docker-compose run --rm composer install
+
     ```
+    Эта команда установит зависимости, указанные в вашем файле composer.json. 
 
 2. **Запуск контейнеров с помощью Make:**
 
@@ -189,7 +192,7 @@ make nginxdown
 
 ## Остановка контейнеров
 
-Чтобы остановить контейнеры, выполните:
+    Чтобы остановить контейнеры, выполните:
 
-```bash
-make nginxdown
+    ```bash
+    make nginxdown
