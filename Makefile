@@ -23,7 +23,7 @@ start-install:
 	docker-compose up -d nginx
 	docker-compose run --rm artisan migrate
 	docker-compose run --rm artisan db:seed --class=SeatsSeeder
-	docker-compose run --rm artisan db:seed --class=AirportssSeeder
+	docker-compose run --rm artisan db:seed --class=AirportsSeeder
 	docker-compose run --rm artisan db:seed --class=AircraftsSeeder
 	
 	
