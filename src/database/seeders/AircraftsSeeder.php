@@ -24,8 +24,7 @@ class AircraftsSeeder extends Seeder
             ['aircraft_code' => 'E195', 'model' => 'Embraer E195', 'range' => 4500],
             ['aircraft_code' => 'CRJ900', 'model' => 'Bombardier CRJ900', 'range' => 2950],
         ];
-
-        // DB::table('aircrafts')->truncate();  
-        DB::table('aircrafts')->insert($aircrafts);
+          
+        DB::table('aircrafts')->insertOrIgnore($aircrafts);
     }
 }

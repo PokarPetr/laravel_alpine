@@ -17,13 +17,14 @@ start-install:
 	mkdir -p ./src/storage/framework/views
 	mkdir -p ./src/storage/framework/sessions
 	mkdir -p ./src/storage/framework/cache	
-  chown -R $(whoami):$(whoami) ./src/storage
-  chmod -R 777 ./src/storage
-
-
+	chown -R $(whoami):$(whoami) ./src/storage
+	chmod -R 777 ./src/storage
 	docker-compose run --rm composer install
 	docker-compose up -d nginx
 	docker-compose run --rm artisan migrate
+	docker-compose run --rm artisan db:seed --class=SeatsSeeder
+	docker-compose run --rm artisan db:seed --class=AirportssSeeder
+	docker-compose run --rm artisan db:seed --class=AircraftsSeeder
 	
 	
 
