@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('airports', function (Blueprint $table) {
             $table->id();
-            $table->string('airport_code', length: 6)->unique();
+            $table->char('airport_code', length: 3)->unique();
             $table->text('airport_name');
             $table->text('city');
             $table->geography('coordinates', subtype: 'point', srid: 4326);

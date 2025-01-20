@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('aircrafts', function (Blueprint $table) {
             $table->id();
-            $table->char('aircraft_code', length: 3)->unique();
+            $table->string('aircraft_code', length: 6)->unique();
             $table->text('model');
             $table->unsignedInteger('range');
             $table->timestamps();
