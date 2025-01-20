@@ -25,6 +25,8 @@ start-install:
 	docker-compose run --rm artisan db:seed --class=SeatsSeeder
 	docker-compose run --rm artisan db:seed --class=AirportsSeeder
 	docker-compose run --rm artisan db:seed --class=AircraftsSeeder
+	
+nginx-restart:
 	docker-compose down
 	docker-compose up -d nginx
 	
