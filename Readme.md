@@ -53,7 +53,23 @@ Before getting started, make sure you have the following tools installed:
 
     This command will run the `php artisan migrate` command to perform database migrations.
 
-4. **Fix permissions for the `storage` directory:**
+4. **Seed database :**
+
+    To seed the database with primary data, execute:
+
+    ```bash
+    make artisan-db-seed
+    ```
+
+		OR
+
+		```bash
+    sudo docker-compose run --rm artisan db:seed
+    ```
+
+    This command will populate the database with data using the seeders.
+
+5. **Fix permissions for the `storage` directory:**
 
     If you encounter permission issues with the `storage` directory (for example, if Laravel can't write to `storage`), execute the following command:
 
@@ -63,7 +79,7 @@ Before getting started, make sure you have the following tools installed:
 
     This command will set the appropriate permissions for the `storage` folder to allow writing.
 
-5. **Access the application:**
+6. **Access the application:**
 
     After the containers are up and running, the application will be available at:
 
@@ -135,8 +151,23 @@ make nginxdown
     ```
 
     Эта команда запускает миграции базы данных с использованием `php artisan migrate`.
+4. **Наполнение базы данных первичными данными :**
 
-4. **Исправление прав на директорию `storage`:**
+    Для наполнения базы данных выполните команду:
+
+    ```bash
+    make artisan-db-seed
+    ```
+
+		OR
+
+		```bash
+    sudo docker-compose run --rm artisan db:seed
+    ```
+
+    Эта команда запускает сидеры для наполнения базы данных.
+
+5. **Исправление прав на директорию `storage`:**
 
     В случае возникновения проблем с правами на директории (например, если Laravel не может записывать в `storage`), выполните следующую команду:
 
@@ -146,12 +177,12 @@ make nginxdown
 
     Эта команда установит необходимые права на папку `storage` для записи файлов.
 
-5. **Доступ к приложению:**
+6. **Доступ к приложению:**
 
     После того, как контейнеры запустятся, приложение будет доступно по следующему адресу:
 
     ```bash
-    http://localhost:8000
+    http://localhost:8085
     ```
 
     Вы можете перейти по этому адресу в браузере для доступа к вашему приложению.
