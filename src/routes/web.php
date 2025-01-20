@@ -10,6 +10,7 @@ use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\AirportController;
 use App\Http\Controllers\SeatController;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Counter;
 
 Route::get('/', function () {
 
@@ -23,6 +24,8 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+
+Route::get('/counter', Counter::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

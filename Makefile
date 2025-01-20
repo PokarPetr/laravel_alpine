@@ -1,14 +1,14 @@
 create-laravel:
-	sudo docker-compose run --rm composer create-project laravel/laravel .
+	docker-compose run --rm composer create-project laravel/laravel .
 
 nginxup:
-	sudo docker-compose up -d nginx
+	docker-compose up -d nginx
 
 nginxdown:
-	sudo docker-compose down
+	docker-compose down
 
 artisan-migrate:
-	sudo docker-compose run --rm artisan migrate
+	docker-compose run --rm artisan migrate
 	
 artisan-db-seed:
-	sudo docker-compose run --rm artisan db:seed
+	docker-compose run --rm artisan db:seed

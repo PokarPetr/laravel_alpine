@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
-            $table->varchar('aircraft_code', length: 6);
+            $table->string('aircraft_code', length: 6);
             $table->string('seat_no', length: 4); 
             $table->enum('fare_conditions', ['Economy', 'Comfort', 'Business']);
             $table->timestamps();
