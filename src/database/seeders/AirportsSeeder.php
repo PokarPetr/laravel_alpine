@@ -46,7 +46,7 @@ class AirportsSeeder extends Seeder
             ['airport_code' => 'CPH', 'airport_name' => 'Copenhagen Airport', 'city' => 'Copenhagen', 'coordinates' => DB::raw("ST_PointFromText('POINT(55.6180 12.6492)', 4326)")],
         ];
 
-        DB::table('airports')->truncate();
+        // DB::table('airports')->truncate();
         DB::table('airports')->insert($airports);
     }
 }
