@@ -10,3 +10,5 @@ nginxdown:
 artisan-migrate:
 	sudo docker-compose run --rm artisan migrate
 	
+artisan-db-seed:
+	sudo docker-compose run --rm artisan db:seed

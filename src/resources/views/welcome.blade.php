@@ -92,6 +92,21 @@
                                 </div>
                             @endforeach
                         </div>
+                       
+                        <h1 class="hello" >Available Seats</h1><br>
+                        <div >
+                            <div class="seat-list">
+                                    <span>Fare Conditions</span>
+                                    <span>Total</span>                                    
+                                    <span></span>                                    
+                            </div>
+                            @foreach ($seats_count as $seat)
+                                <div class="seat-list">
+                                    <span>{{ $seat->fare_conditions }}</span>
+                                    <span>{{ $seat->count }}</span>
+                                </div>
+                            @endforeach
+                        </div>
                         <style>
                             .airport-list {
                                 display: grid;
@@ -104,6 +119,14 @@
                             .aircraft-list {
                                 display: grid;
                                 grid-template-columns: 70px 250px 30px 85px; 
+                                gap: 10px; 
+                                font-family: Arial, sans-serif;
+                                margin-top: 5px;
+                            }
+
+                            .seat-list {
+                                display: grid;
+                                grid-template-columns: 370px 100px; 
                                 gap: 10px; 
                                 font-family: Arial, sans-serif;
                                 margin-top: 5px;
