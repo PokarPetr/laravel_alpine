@@ -12,6 +12,9 @@ use App\Http\Controllers\SeatController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Counter;
 
+use App\Http\Livewire\BookingForm;
+use App\Livewire\AirportSelector;
+
 Route::get('/', function () {
 
     $aircrafts = DB::table('aircrafts')->get();
@@ -21,11 +24,19 @@ Route::get('/', function () {
     return view('welcome', compact('airport_mod', 'aircrafts', 'seats_count'));
 });
 
+
 Route::get('/home', function () {
-    return view('home');
-});
+    if (View::exists('pages.home')){
+        return View::make('pages.home', ['title' => 'BookingHomePage']);
+    }
+    return abort(404, 'Home page not found');
+})->name('home');
 
 Route::get('/counter', Counter::class);
+Route::get('/airport-selector', AirportSelector::class);
+Route::get('/calendar', function() {
+    return view('pages.calendar', ['title' => 'Calendar']);
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
