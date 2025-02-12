@@ -1,0 +1,104 @@
+<?php
+
+namespace App\Livewire\Bookings;
+
+use ReflectionClass; 
+
+use Carbon\Carbon;
+use Livewire\Component;
+use App\Models\Airport;
+use App\Models\FoundFlight;
+use App\Services\AirportService;
+use App\Services\CreateFakeFlightService;
+use App\Services\GetDistanceService;
+
+class FlightSearchForm extends Component
+{
+    public $airports;
+    public $flightData;
+    public $currentFlightData;
+
+    protected $listeners = [
+        'propertyUpdated' => 'addPropertyToForm',
+    ];
+    
+    public function mount(AirportService $airs)
+    { 
+        $this->airports = $airs->all(); 
+
+        $this->flightData= [
+            'departureAirport' => 'airportCode',
+            'arrivalAirport' => 'airportCode',
+            'startDate' => 'flightDateTime',
+            'returnDate' => 'flightDateTime',
+            'passangerNumber' => 'passangerNumber',            
+        ];
+        $this->currentFlightData = [
+            'departureAirport' => '',
+            'arrivalAirport' => '',
+            'startDate' => '',
+            'returnDate' => '',
+            'passangerNumber' => 1, 
+        ];       
+    }
+    
+    public function addPropertyToForm($data): void
+    {         
+        if (isset($data['property'])) {
+            $method = $this->flightData[$data['property']];
+            $this->currentFlightData[$data['property']] = $this->$method($data);            
+        }
+    }
+
+    public function airportCode($airportData): string
+    {
+        if($airportData['value'] == '') return '';
+        return $this->airports->firstWhere('id', $airportData['value'])->airport_code;
+    }
+
+    public function flightDateTime($flightDateData)
+    {
+        
+        if (isset($flightDateData['property'])){
+            if($flightDateData['property'] == 'startDate'){
+
+                return Carbon::parse($flightDateData['value'].' 10:00:00');
+            }            
+            return Carbon::parse($flightDateData['value'].' 18:00:00');
+        }
+        return '';        
+    }
+
+    public function passangerNumber($passangerNumberData): int
+    {
+        if (isset($passangerNumberData['property'])){
+            return $passangerNumberData['value'];
+        }
+        return 1;        
+    }
+    
+    public function searchFlights(GetDistanceService $dist, CreateFakeFlightService $fakeFlight)
+    {        
+        $this->generateFakeFlights($dist, $fakeFlight);
+    }
+
+    private function generateFakeFlights($dist, $fakeFlight): void
+    {
+        
+        $distance = $dist->setFlightData($this->currentFlightData); 
+        $coeffs = [0.1, 0.12];        
+        
+        foreach($coeffs as $coeff) { 
+            $fakeFlight->createFakeFlight(
+                $this->currentFlightData, 
+                $distance ,
+                $coeff
+            );
+        }        
+    }    
+
+    public function render()
+    {
+        return view('livewire.bookings.flight-search-form');
+    }
+}
