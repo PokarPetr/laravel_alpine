@@ -13,6 +13,9 @@
                     <option value="{{ $key }}">{{ $month }}</option>
                 @endforeach
             </select>
+            <div class="calendar-field">
+                <button type="button" wire:click="resetDate">OnWayTicket</button>
+            </div>
         </div > 
         
     </div>

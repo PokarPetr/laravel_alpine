@@ -6,6 +6,7 @@ use Livewire\Component;
 
 class PassengerCount extends Component
 {
+    protected $listeners = ['closeModals' => 'closeCounter']; 
     public $showCounter = false;
     public $passangerNumber = null;
 
@@ -27,6 +28,8 @@ class PassengerCount extends Component
     public function increment()
     {
         $this->passangerNumber++;
+
+        $this->dispatch('propertyUpdated', ['property' => 'passangerNumber', 'value' => $this->passangerNumber]);
     }
  
     public function decrement()
@@ -34,6 +37,8 @@ class PassengerCount extends Component
         if ($this->passangerNumber > 1) {
             $this->passangerNumber--;
         }
+
+        $this->dispatch('propertyUpdated', ['property' => 'passangerNumber', 'value' => $this->passangerNumber]);
     }
 
     public function resetReturnDate()

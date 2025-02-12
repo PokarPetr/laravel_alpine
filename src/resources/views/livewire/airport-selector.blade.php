@@ -7,7 +7,7 @@
     
     <div class="select">
         <div>Departure airport</div>
-        <select wire:model.change="departureAirportId" id="departure" >
+        <select wire:model.change="departureAirportId">
             
             <option value="">--</option>
             @foreach($airports as $airport)
@@ -19,7 +19,7 @@
 
     <div class="select">
         <div>Arrival airport</div>
-        <select wire:model.change="arrivalAirportId" id="arrival">
+        <select wire:model.change="arrivalAirportId">
             <option value="">--</option>
             @foreach($airports as $airport)
                 <option value="{{ $airport->id }}">{{ $airport->airport_code.' '.$airport->city }}</option>

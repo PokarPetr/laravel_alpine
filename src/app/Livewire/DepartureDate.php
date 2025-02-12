@@ -13,18 +13,16 @@ class DepartureDate extends Component
     public $targetInput = ''; 
     public $startDate = null; 
     public $returnDate = null; 
-    
 
     public function mount()
     {
         $this->startDate = '';       
-        $this->returnDate = '';       
-        
+        $this->returnDate = ''; 
     }
 
     
     #[On('selectedDate')]
-    public function updateDepartureDate($date)
+    public function setFlightDate($date)
     {
         $dt = Carbon::createFromFormat('Y-m-d',$date);
         if($this->targetInput == 'start'){
@@ -35,6 +33,7 @@ class DepartureDate extends Component
                     $this->returnDate = $dt->format('Y-m-d');
                 }
             }
+            $this->dispatch('propertyUpdated', ['property' => 'startDate', 'value' => $this->startDate]);
         }elseif($this->targetInput == 'return'){
             $this->returnDate = $date;
             if($this->startDate) {
@@ -43,6 +42,7 @@ class DepartureDate extends Component
                     $this->startDate = $dt->format('Y-m-d');
                 }
             }
+            $this->dispatch('propertyUpdated', ['property' => 'returnDate', 'value' => $this->returnDate]);
         }
     }
 
@@ -54,12 +54,16 @@ class DepartureDate extends Component
 
     // Закрытие календаря
     
+    #[On('closeModals')]
     public function closeCalendar()
     {
-        $this->showCalendar = false;
+        if($this->showCalendar == true) {
+            $this->showCalendar = false;
+        }
     }
     // Сброс обратной даты
     
+    #[On('resetReturnDate')]
     public function resetReturnDate()
     {
         $this->returnDate = '';

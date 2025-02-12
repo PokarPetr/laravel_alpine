@@ -2,24 +2,14 @@
     <div class="date-container">
         <div data-test-id="start-date-field">
             <label >Departure date</label>
-            <input type="text" wire:model="startDate" readonly data-test-id="start-date-value"
+            <input class="open-calendar" type="text" wire:model="startDate" readonly
             wire:click="openCalendar('start')" placeholder="--">    
             
         </div>
         <div class="return-date" data-test-id="return-date-field">
         <label >Return date</label>
-            <input type="text" wire:model="returnDate" readonly data-test-id="return-date-value"
-            wire:click="openCalendar('return')" placeholder="--">
-        @if($showCalendar)
-            <div class="_flex">
-                <div class="calendar-field">
-                    <button type="button" wire:click="closeCalendar">x</button>
-                </div>
-                <div class="calendar-field">
-                    <button type="button" wire:click="resetReturnDate">Reset</button>
-                </div>
-            </div>
-        @endif
+            <input class="open-calendar" type="text" wire:model="returnDate" readonly
+            wire:click="openCalendar('return')" placeholder="--">        
         </div>
     </div>
     @if($showCalendar)

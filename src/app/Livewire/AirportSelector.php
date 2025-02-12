@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Airport;
+use App\Services\AirportService;
 
 class AirportSelector extends Component
 {
@@ -18,10 +19,20 @@ class AirportSelector extends Component
     ];
   
 
-    public function mount()
+    public function mount(AirportService $airs)
     {
-        $this->airports = Airport::all();
-    }   
+        $this->airports = $airs->all();
+        // dd($this->airports, gettype($this->airports));
+    }
+
+    public function updatedDepartureAirportId($value)
+    {
+        $this->dispatch('propertyUpdated', ['property' => 'departureAirport', 'value' => $value]);
+    }
+    public function updatedArrivalAirportId($value)
+    {
+        $this->dispatch('propertyUpdated', ['property' => 'arrivalAirport', 'value' => $value]);
+    }
     
     public function updated($propertyName)
     {
@@ -30,6 +41,7 @@ class AirportSelector extends Component
         } else {
             $this->resetValidation();
         }
+        
     }
 
     public function render()

@@ -6,7 +6,8 @@ use Carbon\Carbon;
 use Livewire\Component;
 
 class CalendarSelector extends Component
-{    
+{   
+    
     public $currentDate;
     public $currentYear;
     public $currentMonth;
@@ -246,11 +247,9 @@ class CalendarSelector extends Component
         $this->dispatch('closeCalendar', true);
 
      }
-     public function resetReturnDate()
+     public function resetDate()
      {
-        $this->dispatch('resetReturnDate', true);
-        
-
+        $this->dispatch('resetReturnDate'); 
      }
      
      
