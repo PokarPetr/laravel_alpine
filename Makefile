@@ -19,7 +19,9 @@ start-install:
 	mkdir -p ./src/storage/framework/cache	
 	chown -R $(whoami):$(whoami) ./src/storage
 	chmod -R 777 ./src/storage
+	docker-compose run --rm composer clear-cache
 	docker-compose run --rm composer install
+	docker-compose run --rm node npm cache clean --force
 	docker-compose run --rm node npm install
 	docker-compose up -d nginx
 	docker-compose run --rm artisan migrate
