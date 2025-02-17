@@ -19,6 +19,10 @@ start-install:
 	mkdir -p ./src/storage/framework/cache	
 	chown -R $(whoami):$(whoami) ./src/storage
 	chmod -R 777 ./src/storage
+	chown -R $(whoami):$(whoami) ~/.docker
+	chmod -R 777 ~/.docker
+	chown -R $(whoami):$(whoami) ~/.docker/buildx
+	chmod -R 777 ~/.docker/buildx
 	docker-compose run --rm composer clear-cache
 	docker-compose run --rm composer install
 	docker-compose run --rm node npm cache clean --force
