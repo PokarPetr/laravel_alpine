@@ -11,16 +11,24 @@ class FoundFlight extends Model
 
     protected $table = 'found_flights';
 
+    protected $attributes = [
+        'departure_airport' => '', 
+        'arrival_airport' => '', 
+        'departure_date' => '',
+        'aircompany_code' => '',
+        'flight_time' => '',
+        'price' => '0', 
+        'fare_conditions' => 'Economy'
+    ];
+
     protected $fillable = [
         'departure_airport', 
         'arrival_airport', 
-        'departure_date', 
-        'return_date', 
-        'number_passengers', 
+        'departure_date',
         'aircompany_code',
         'flight_time',
         'price', 
-        'total'
+        'fare_conditions'
     ];
 
     public function aircompany()

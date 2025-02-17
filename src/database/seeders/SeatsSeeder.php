@@ -20,8 +20,8 @@ class SeatsSeeder extends Seeder
             $this->formSeats($seats, $model, $config);  
         }        
 
-        DB::table('seats')->truncate();       
-        DB::table('seats')->insert($seats);           
+        // DB::table('seats')->truncate();       
+        DB::table('seats')->insertOrIgnore($seats);           
     }
 
     /**

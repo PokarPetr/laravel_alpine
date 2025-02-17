@@ -28,8 +28,7 @@ class PassengerCount extends Component
     public function increment()
     {
         $this->passangerNumber++;
-
-        $this->dispatch('propertyUpdated', ['property' => 'passangerNumber', 'value' => $this->passangerNumber]);
+        $this->updatedPassangerNumber($this->passangerNumber);
     }
  
     public function decrement()
@@ -37,13 +36,17 @@ class PassengerCount extends Component
         if ($this->passangerNumber > 1) {
             $this->passangerNumber--;
         }
-
-        $this->dispatch('propertyUpdated', ['property' => 'passangerNumber', 'value' => $this->passangerNumber]);
+        $this->updatedPassangerNumber($this->passangerNumber);        
     }
 
     public function resetReturnDate()
     {
-        $this->passangerNumber =1;
+        $this->passangerNumber = 1;
+        $this->updatedPassangerNumber($this->passangerNumber);
+    }
+
+    public function updatedPassangerNumber($value) {
+        $this->dispatch('propertyUpdated', ['property' => 'passangerNumber', 'value' => $value]);
     }
 
     public function render()

@@ -22,7 +22,6 @@ class AirportSelector extends Component
     public function mount(AirportService $airs)
     {
         $this->airports = $airs->all();
-        // dd($this->airports, gettype($this->airports));
     }
 
     public function updatedDepartureAirportId($value)

@@ -24,26 +24,39 @@ class DepartureDate extends Component
     #[On('selectedDate')]
     public function setFlightDate($date)
     {
-        $dt = Carbon::createFromFormat('Y-m-d',$date);
-        if($this->targetInput == 'start'){
-            $this->startDate = $date;
-            if($this->returnDate) {
-                $return_date = Carbon::createFromFormat('Y-m-d', $this->returnDate);
-                if ($return_date < $dt){
-                    $this->returnDate = $dt->format('Y-m-d');
+        if($date) {
+            $dt = Carbon::createFromFormat('Y-m-d',$date);
+            if($this->targetInput == 'start'){
+                $this->startDate = $date;
+                $this->updatedStartDate($this->startDate); 
+                if($this->returnDate) {
+                    $return_date = Carbon::createFromFormat('Y-m-d', $this->returnDate);
+                    if ($return_date < $dt){
+                        $this->returnDate = $dt->format('Y-m-d');
+                        $this->updatedReturnDate($this->returnDate);
+                    }
                 }
+                
+            }elseif($this->targetInput == 'return'){
+                $this->returnDate = $date;
+                $this->updatedReturnDate($this->returnDate);
+                if($this->startDate) {
+                    $start_date = Carbon::createFromFormat('Y-m-d', $this->startDate);
+                    if ($start_date > $dt){
+                        $this->startDate = $dt->format('Y-m-d'); 
+                        $this->updatedStartDate($this->startDate);                    
+                    }
+                }                
             }
-            $this->dispatch('propertyUpdated', ['property' => 'startDate', 'value' => $this->startDate]);
-        }elseif($this->targetInput == 'return'){
-            $this->returnDate = $date;
-            if($this->startDate) {
-                $start_date = Carbon::createFromFormat('Y-m-d', $this->startDate);
-                if ($start_date > $dt){
-                    $this->startDate = $dt->format('Y-m-d');
-                }
-            }
-            $this->dispatch('propertyUpdated', ['property' => 'returnDate', 'value' => $this->returnDate]);
         }
+    }
+    
+    public function updatedStartDate($value){
+        $this->dispatch('propertyUpdated', ['property' => 'startDate', 'value' => $value]);
+    }
+
+    public function updatedReturnDate($value){
+        $this->dispatch('propertyUpdated', ['property' => 'returnDate', 'value' => $value]);
     }
 
     public function openCalendar($target)
@@ -52,7 +65,6 @@ class DepartureDate extends Component
         $this->showCalendar = true;
     }
 
-    // Закрытие календаря
     
     #[On('closeModals')]
     public function closeCalendar()
@@ -61,12 +73,13 @@ class DepartureDate extends Component
             $this->showCalendar = false;
         }
     }
-    // Сброс обратной даты
     
     #[On('resetReturnDate')]
     public function resetReturnDate()
     {
         $this->returnDate = '';
+        $this->updatedReturnDate($this->returnDate);
+        
     }
     public function render()
     {

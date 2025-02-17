@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Bookings;
 
-use ReflectionClass; 
+use ReflectionClass;
 
 use Carbon\Carbon;
 use Livewire\Component;
@@ -10,7 +10,7 @@ use App\Models\Airport;
 use App\Models\FoundFlight;
 use App\Services\AirportService;
 use App\Services\CreateFakeFlightService;
-use App\Services\GetDistanceService;
+use Livewire\Features\SupportRedirects\Redirector;
 
 class FlightSearchForm extends Component
 {
@@ -63,8 +63,11 @@ class FlightSearchForm extends Component
             if($flightDateData['property'] == 'startDate'){
 
                 return Carbon::parse($flightDateData['value'].' 10:00:00');
-            }            
-            return Carbon::parse($flightDateData['value'].' 18:00:00');
+
+            }elseif($flightDateData['property'] == 'returnDate' && $flightDateData['value']){
+
+                return Carbon::parse($flightDateData['value'].' 18:00:00');
+            } 
         }
         return '';        
     }
@@ -77,25 +80,12 @@ class FlightSearchForm extends Component
         return 1;        
     }
     
-    public function searchFlights(GetDistanceService $dist, CreateFakeFlightService $fakeFlight)
+    public function searchFlights(CreateFakeFlightService $fakeFlight): Redirector
     {        
-        $this->generateFakeFlights($dist, $fakeFlight);
+        $fakeFlight->createFakeFlight($this->currentFlightData);
+        session(['currentFlightData' => $this->currentFlightData]);
+        return redirect()->route('flight-available-list'); 
     }
-
-    private function generateFakeFlights($dist, $fakeFlight): void
-    {
-        
-        $distance = $dist->setFlightData($this->currentFlightData); 
-        $coeffs = [0.1, 0.12];        
-        
-        foreach($coeffs as $coeff) { 
-            $fakeFlight->createFakeFlight(
-                $this->currentFlightData, 
-                $distance ,
-                $coeff
-            );
-        }        
-    }    
 
     public function render()
     {
