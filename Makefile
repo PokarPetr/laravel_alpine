@@ -20,14 +20,14 @@ start-install:
 	chown -R $(whoami):$(whoami) ./src/storage
 	chmod -R 777 ./src/storage
 	chown -R $(whoami):$(whoami) ~/.docker
-	chmod -R 777 ~/.docker
-	chown -R $(whoami):$(whoami) ~/.docker/buildx
-	chmod -R 777 ~/.docker/buildx
+	sudo chmod -R 777 ~/.docker
 	docker-compose run --rm composer clear-cache
 	docker-compose run --rm composer install
 	docker-compose run --rm node npm cache clean --force
 	docker-compose run --rm node npm install
 	docker-compose up -d nginx
+	@echo "Waiting for MySQL to be ready..."
+	sleep 10
 	docker-compose run --rm artisan migrate
 	docker-compose run --rm artisan db:seed --class=SeatsSeeder
 	docker-compose run --rm artisan db:seed --class=AirportsSeeder

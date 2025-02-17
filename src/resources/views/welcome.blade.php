@@ -107,6 +107,21 @@
                                 </div>
                             @endforeach
                         </div>
+
+                        <h1 class="hello" >Available Companies</h1><br>
+                        <div >
+                            <div class="seat-list">
+                                    <span>Company Code</span>
+                                    <span>Company Name</span>                                    
+                                    <span></span>                                    
+                            </div>
+                            @foreach ($aircompanies as $company)
+                                <div class="seat-list">
+                                    <span>{{ $company->aircompany_code }}</span>
+                                    <span>{{ $company->name }}</span>
+                                </div>
+                            @endforeach
+                        </div>
                         <style>
                             h1.hello {
                                 font-size:35px;
