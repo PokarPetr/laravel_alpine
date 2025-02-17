@@ -6,5 +6,7 @@
 
 <h1 style="text-align:center;">Home</h1>
 
-<x-bookings.flight-search-form />
+@livewire('bookings.flight-search-form')
 @endsection
+
+

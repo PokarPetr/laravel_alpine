@@ -1,5 +1,5 @@
 <nav class="top-navigation">
-    <a href="/" class="logo">
+    <a href="/home" class="logo">
         <span><!-- SVG --></span>        
         <span>TicketBooking</span>
     </a>
@@ -9,7 +9,7 @@
     @else 
         <a href="/login" class="nav-link">Login</a>
     @endif
-    <a href="{{ route('home') }}" class="nav-link">Support</a>
+    <a href="{{ route('flight-available-list') }}" class="nav-link">Support</a>
 </nav>
 
 <style>
