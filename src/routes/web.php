@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TicketController;
-use App\Http\Controllers\TicketFlightController;
-use App\Http\Controllers\FlightController;
-use App\Http\Controllers\BoardingPassController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\AircraftController;
-use App\Http\Controllers\AirportController;
-use App\Http\Controllers\SeatController;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Counter;
+use App\Http\Controllers\SeatController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\FlightController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\AirportController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AircraftController;
+use App\Http\Controllers\BoardingPassController;
+use App\Http\Controllers\TicketFlightController;
 
-use App\Http\Livewire\BookingForm;
+use App\Livewire\BookingForm;
 use App\Livewire\AirportSelector;
+use App\Livewire\Bookings\FlightAvailableList;
 
 Route::get('/', function () {
 
@@ -32,11 +32,17 @@ Route::get('/home', function () {
     return abort(404, 'Home page not found');
 })->name('home');
 
-Route::get('/counter', Counter::class);
+Route::get('/flight-available-list', function() {
+    return view('pages.flight-available-list', ['title' => 'Available Flights']);
+})->name('flight-available-list');
+
+
 Route::get('/airport-selector', AirportSelector::class);
 Route::get('/calendar', function() {
     return view('pages.calendar', ['title' => 'Calendar']);
 });
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
