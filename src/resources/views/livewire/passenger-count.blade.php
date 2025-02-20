@@ -25,6 +25,9 @@
     @endif
 
         <style>
+        .open-counter{
+            max-width: 180px;
+        }
         div.counter-container {
                     position: absolute;
                     width: 250px;

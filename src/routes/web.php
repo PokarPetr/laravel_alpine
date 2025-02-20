@@ -21,8 +21,9 @@ Route::get('/', function () {
     $airport_mod = DB::select('SELECT airport_code, airport_name, city, ROUND(ST_Distance(coordinates, (SELECT coordinates FROM airports WHERE airport_code="TGD")) / 1000) as distance_in_meters FROM airports WHERE airport_code!="TGD" ORDER BY distance_in_meters');
     $seats_count = DB::select('SELECT fare_conditions, COUNT(*) as count FROM seats GROUP BY fare_conditions ORDER BY fare_conditions DESC');
     $aircompanies = DB::select('SELECT aircompany_code, name FROM aircompanies');
+    $flights = DB::select('SELECT * FROM found_flights');
        
-    return view('welcome', compact('airport_mod', 'aircrafts', 'seats_count'));
+    return view('welcome', compact('airport_mod', 'aircrafts', 'seats_count', 'aircompanies', 'flights'));
 });
 
 

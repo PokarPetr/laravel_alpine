@@ -1,39 +1,35 @@
 
-    
-<div class="airport-selectors" >
-    @error('departureAirportId')
-        <div class="error-message" style="color: red;">{{ $message }}</div>
-    @enderror
-    
-    <div class="select">
-        <div>Departure airport</div>
-        <select wire:model.change="departureAirportId">
-            
-            <option value="">--</option>
-            @foreach($airports as $airport)
-                <option value="{{ $airport->id }}">{{ $airport->airport_code.' '.$airport->city}}</option>
-            @endforeach
-        </select>
-    </div>
-   
+<div>    
+    <div class="airport-selectors" >       
+        
+        <div class="select">
+            <div>Departure airport</div>            
+            <select wire:model.change="departureAirportId">                
+                <option value="">--</option>
+                @foreach($airports as $airport)
+                    <option value="{{ $airport->id }}">{{ $airport->airport_code.' '.$airport->city}}</option>
+                @endforeach
+            </select>
+        </div>    
 
-    <div class="select">
-        <div>Arrival airport</div>
-        <select wire:model.change="arrivalAirportId">
-            <option value="">--</option>
-            @foreach($airports as $airport)
-                <option value="{{ $airport->id }}">{{ $airport->airport_code.' '.$airport->city }}</option>
-            @endforeach
-        </select>
+        <div class="select">
+            <div>Arrival airport</div>
+            <select wire:model.change="arrivalAirportId">
+                <option value="">--</option>
+                @foreach($airports as $airport)
+                    <option value="{{ $airport->id }}">{{ $airport->airport_code.' '.$airport->city }}</option>
+                @endforeach
+            </select>
+        </div> 
+
     </div>
-    
     <style>
-
         div.airport-selectors {
             display: flex;
             justify-content: space-between;
         }
         div.airport-selectors select{
+            max-width: 180px;
             max-height: 50px;
             color: #000;
             background-color: #fff;
@@ -45,6 +41,7 @@
         .error-message {
             position:absolute;
             font-size: 1.05em;
+            top: 10px;
         }
     </style>
 </div>

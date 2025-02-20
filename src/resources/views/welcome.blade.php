@@ -111,14 +111,28 @@
                         <h1 class="hello" >Available Companies</h1><br>
                         <div >
                             <div class="seat-list">
-                                    <span>Company Code</span>
-                                    <span>Company Name</span>                                    
+                                    <span>Company Name</span>
+                                    <span>Code</span>                                    
                                     <span></span>                                    
                             </div>
                             @foreach ($aircompanies as $company)
                                 <div class="seat-list">
-                                    <span>{{ $company->aircompany_code }}</span>
                                     <span>{{ $company->name }}</span>
+                                    <span>{{ $company->aircompany_code }}</span>
+                                </div>
+                            @endforeach
+                            <h1 class="hello" >Flights</h1><br>
+                            <div class="flight-list">
+                                    <span>Departure Date</span>
+                                    <span>Airport</span>                                    
+                                    <span>Travel time</span>                                    
+                            </div>
+
+                            @foreach ($flights as $flight)
+                                <div class="flight-list">
+                                    <span>{{ $flight->departure_date }}</span>
+                                    <span>{{ $flight->departure_airport }} ==> {{ $flight->arrival_airport}}</span>
+                                    <span>{{ $flight->flight_time }}</span>
                                 </div>
                             @endforeach
                         </div>
@@ -147,6 +161,13 @@
                             .seat-list {
                                 display: grid;
                                 grid-template-columns: 370px 100px; 
+                                gap: 10px; 
+                                font-family: Arial, sans-serif;
+                                margin-top: 5px;
+                            }
+                            .flight-list {
+                                display: grid;
+                                grid-template-columns: 200px 200px 200px; 
                                 gap: 10px; 
                                 font-family: Arial, sans-serif;
                                 margin-top: 5px;

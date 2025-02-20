@@ -14,12 +14,12 @@ class FoundFlightsService
 
 	public function __construct(TicketService $tickets)
 	{
-		$this->choosenFlight = session('currentFlightData',[]);
 		$this->tickets = $tickets;		
 	}
 
 	public function choosenFlights()
-	{
+	{		
+		$this->choosenFlight = session('currentFlightData',[]);
 		
 		$startDateRaw = $this->choosenFlight['startDate'];
 		$startDate = $this->validateDate($startDateRaw);
@@ -48,12 +48,19 @@ class FoundFlightsService
 			if (!$dateString) {
 					return null;
 			}
-			try {
-					$date = DateTime::createFromFormat('Y-m-d H:i:s', $dateString);
-					return $date ? $date->format('Y-m-d') : null;
-			} catch (Exception $e) {
-					return null;
-			}
+			return $this->getDate($dateString);
+	}
+
+	private function getDate ($dateString)
+	{
+		try {
+			$date = DateTime::createFromFormat('Y-m-d H:i:s', $dateString);
+
+			return $date ? $date->format('Y-m-d') : null;
+		} catch (Exception $e) {
+
+			return null;
+		}
 	}
 
 	private function getFlights($departureAirport, $arrivalAirport, $date)

@@ -6,7 +6,7 @@ use App\Models\Airport;
 
 class AirportService
 {
-	public function all()
+	static public function all()
 	{
 		return Airport::all();
 	}

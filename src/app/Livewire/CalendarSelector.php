@@ -37,8 +37,7 @@ class CalendarSelector extends Component
      */
     public function mount() : void 
     {
-        $this->currentDate = Carbon::now();
-         
+        $this->currentDate = Carbon::now();        
 
         $this->currentYear = $this->currentDate->copy()->year;
         $this->currentMonth = $this->currentDate->copy()->month;
@@ -47,14 +46,8 @@ class CalendarSelector extends Component
             $this->years[] = $this->currentYear + $y;
         } 
     }   
+  
     
-
-    // Выбор даты
-    public function selectDate($date)
-    {              
-        $this->selectedDate = $date;               
-       
-    }
     /**
      * Render the view for the calendar selector.
      * Passes the current year, month, and days to the view.
@@ -62,11 +55,6 @@ class CalendarSelector extends Component
     public function render()
     {   
         return view('livewire.calendar-selector', [
-            'currentYear' => $this->currentYear,
-            'years' => $this->years,
-            'currentMonth'=> $this->currentMonth,
-            'currentMonthName' => $this->currentMonthName,
-            'months'=> $this->months,
             'days' => $this->getDays($this->currentDate, $this->monthNumber) 
         ]);
     }
@@ -79,24 +67,23 @@ class CalendarSelector extends Component
      * @param int $numberOfMonth Number of months to fetch days for.
      * @return array Array of weeks with day and metadata.
      */
-        private function getDays($currentDate, $monthNumber): array
-        {
-            
-            $currentWeeks = $this->getCurrentWeeks($currentDate, $isCurrentMonth=true);        
-            
+    private function getDays($currentDate, $monthNumber): array
+    {            
+        $currentWeeks = $this->getCurrentWeeks($currentDate, $isCurrentMonth=true);        
+        
+        $monthNumber--;
+
+        while ($monthNumber) {
+
+            $weeksNextMonth = $this->getCurrentWeeks($currentDate->copy()->addMonth());             
+            $currentWeeks = $this->getAllWeeks($currentWeeks, $weeksNextMonth );
+
+            $currentDate = $currentDate->addMonth();
             $monthNumber--;
-
-            while ($monthNumber) {
-
-                $weeksNextMonth = $this->getCurrentWeeks($currentDate->copy()->addMonth());             
-                $currentWeeks = $this->getAllWeeks($currentWeeks, $weeksNextMonth );
-
-                $currentDate = $currentDate->addMonth();
-                $monthNumber--;
-            }
-            
-            return $currentWeeks;
         }
+        
+        return $currentWeeks;
+    }
 
     /**
      * Get weeks for the current month.
@@ -217,41 +204,38 @@ class CalendarSelector extends Component
      * Update the calendar when the user selects a different year or month.
      */
 
-     public function updated($propertyName): void
-     {        
-         $this->updateCalendar();
-     }
- 
-     /**
-      * Rebuild the calendar based on the selected year and month.
-      */
-     private function updateCalendar(): void
-     {
-         $this->currentDate = Carbon::create($this->currentYear, $this->currentMonth, 1);
-         $this->currentMonthName = $this->months[(int) $this->currentMonth];
-         
-     }
-
-     public function setDate($date)
-     {
-        $dt = Carbon::createFromFormat('Y-m-d', $date);
-        $this->currentYear = $dt->copy()->year;
-        $this->currentMonth = $dt->month;
+    public function updated($propertyName): void
+    {        
         $this->updateCalendar();
-        $this->dispatch('selectedDate', $date);
+    }
+ 
+    /**
+    * Rebuild the calendar based on the selected year and month.
+    */
+    private function updateCalendar(): void
+    {
+        $this->currentDate = Carbon::create($this->currentYear, $this->currentMonth, 1);
+        $this->currentMonthName = $this->months[(int) $this->currentMonth];
+        
+    }
 
-     }
+    public function setDate($date)
+    {
+    $dt = Carbon::createFromFormat('Y-m-d', $date);
+    $this->currentYear = $dt->copy()->year;
+    $this->currentMonth = $dt->month;
+    $this->updateCalendar();
+    $this->dispatch('selectedDate', $date);
 
-     public function closeCalendar()
-     {
-        $this->dispatch('closeCalendar', true);
+    }
 
-     }
-     public function resetDate()
-     {
-        $this->dispatch('resetReturnDate'); 
-     }
-     
-     
-    
+    public function closeCalendar()
+    {
+    $this->dispatch('closeCalendar', true);
+
+    }
+    public function resetDate()
+    {
+    $this->dispatch('resetReturnDate'); 
+    }
 }

@@ -24,8 +24,7 @@
         @foreach($days as $week)
             <div class="calendar-week">
                 @foreach($week as $dayData)                
-                        <div class="calendar-day {{ $dayData['meta']['class'] }}"  
-                            data-date="{{ $dayData['meta']['data-date'] }}" 
+                        <div class="calendar-day {{ $dayData['meta']['class'] }}"                              
                             wire:click="setDate('{{ $dayData['meta']['data-date'] }}')">
                             {{ $dayData['day'] == '_' ? '' : $dayData['day'] }}
                         </div>                                             

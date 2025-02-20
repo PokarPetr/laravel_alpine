@@ -22,7 +22,12 @@
             display: flex;
         }
         div.date-container input{
+            max-width: 180px;
             background-color: #fff;
+            color: #000;
+        }
+
+        div.date-container input::placeholder{           
             color: #000;
         }
         div.return-date {

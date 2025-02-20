@@ -1,10 +1,10 @@
 <div>
-   @foreach($flights as $flight)
+   @foreach($flights as $index => $flight)
         <div class="results-container">
-            <div class="ticket-preview">
+            <div class="ticket-preview {{ $openСard ? 'muted' : '' }}" $openCard ?? readonly >
                   <div class="left-side">
                         <p class="ticket-price" >Price {{ $flight['price'] }}</p>                        
-                        <button class="button">Choose</button>
+                        <button class="button" wire:click="openCard({{  $index  }})">Choose</button>
                   </div>
                   <div class="right-side">
                         <div>
@@ -48,10 +48,12 @@
                         @endif
                   </div>
             </div>
+            @if($openCard)
+            <div class="card">
+                  @livewire('flight-card', ['flight' => $flight])
+            </div>
+
         </div>  
-   @endforeach   
-   @foreach($currentFlight as $item)
-         <p>{{ $item }}</p>
    @endforeach 
    <style>
       .results-container {
@@ -118,4 +120,9 @@
             text-align: center;
       }
    </style>  
+   <script>
+            let sessionFlightData = @json(session('currentFlightData'));
+            console.log(sessionFlightData); 
+            
+   </script>
 </div>
