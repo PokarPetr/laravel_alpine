@@ -11,6 +11,7 @@ services:
     depends_on:
       - php
       - mysql
+      - redis
     restart: "always"
 
   php:
@@ -49,6 +50,12 @@ services:
     volumes:
       - ./src:/var/www/laravel
     working_dir: /var/www/laravel
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: "always"
 
   
 volumes:
