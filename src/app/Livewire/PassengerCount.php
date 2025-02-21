@@ -8,11 +8,11 @@ class PassengerCount extends Component
 {
     protected $listeners = ['closeModals' => 'closeCounter']; 
     public $showCounter = false;
-    public $passangerNumber = null;
+    public $passangerNumber;
 
     public function mount() 
     {
-        $this->passangerNumber = 1;
+        $this->passangerNumber = session('passangerNumber', 1);
     }
 
     public function openCounter()

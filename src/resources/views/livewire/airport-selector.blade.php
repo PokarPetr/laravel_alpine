@@ -5,7 +5,7 @@
         <div class="select">
             <div>Departure airport</div>            
             <select wire:model.change="departureAirportId">                
-                <option value="">--</option>
+                <option value="{{ session('departureAirportId', '') }}">{{ session('departureAirport', '--') }}</option>
                 @foreach($airports as $airport)
                     <option value="{{ $airport->id }}">{{ $airport->airport_code.' '.$airport->city}}</option>
                 @endforeach
@@ -15,7 +15,7 @@
         <div class="select">
             <div>Arrival airport</div>
             <select wire:model.change="arrivalAirportId">
-                <option value="">--</option>
+                <option value="{{ session('arrivalAirportId', '') }}">{{ session('arrivalAirport', '--') }}</option>
                 @foreach($airports as $airport)
                     <option value="{{ $airport->id }}">{{ $airport->airport_code.' '.$airport->city }}</option>
                 @endforeach

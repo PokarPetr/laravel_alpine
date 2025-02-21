@@ -16,8 +16,15 @@ class DepartureDate extends Component
 
     public function mount()
     {
-        $this->startDate = '';       
-        $this->returnDate = ''; 
+        $this->startDate = $this->date('startDate');       
+        $this->returnDate = $this->date('returnDate'); 
+    }
+
+    private function date($property)
+    {
+        $date = session($property, '');
+        if (!$date) return '';
+        return $date->format('Y-m-d');
     }
 
     

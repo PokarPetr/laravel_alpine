@@ -5,9 +5,8 @@
         <p>DepartureDate => {{ $currentFlightData['startDate'] }}</p>
         <p>ArrivalDate => {{ $currentFlightData['returnDate'] }}</p>
         <p>Passangers => {{ $currentFlightData['passangerNumber'] }}</p>
-    </ul> -->
-       
-    <h2 style="text-align:center; margin-bottom: 30px;" >Booking Form</h2>
+    </ul> -->      
+    
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

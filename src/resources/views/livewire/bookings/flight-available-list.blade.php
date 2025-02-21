@@ -1,10 +1,15 @@
-<div>
-   @foreach($flights as $index => $flight)
-        <div class="results-container">
-            <div class="ticket-preview {{ $openСard ? 'muted' : '' }}" $openCard ?? readonly >
+<div><div class="result-container">
+      @if(!$openCard)
+       @livewire('bookings.flight-search-form')
+      @endif  
+      @foreach($flights as $index => $flight)
+        <div class="results">
+            <div class="ticket-preview {{ $openCard ? 'muted' : '' }}">
                   <div class="left-side">
-                        <p class="ticket-price" >Price {{ $flight['price'] }}</p>                        
-                        <button class="button" wire:click="openCard({{  $index  }})">Choose</button>
+                        <p class="ticket-price" >Price {{ $flight['price'] }}</p> 
+                        <a href="#flights-start" class="flights-start">    
+                              <button class="button" wire:click="openFlightCard({{  $index  }})">Choose</button>
+                        </a>
                   </div>
                   <div class="right-side">
                         <div>
@@ -47,16 +52,19 @@
                         </div>
                         @endif
                   </div>
-            </div>
-            @if($openCard)
-            <div class="card">
-                  @livewire('flight-card', ['flight' => $flight])
-            </div>
-
+            </div>            
         </div>  
    @endforeach 
+   @if($openCard)
+      <div class="card">
+            @livewire('flight-card', ['flight' => $ticket])
+      </div>
+      @endif
    <style>
-      .results-container {
+      .result-container {
+            position: relative;
+      }
+      .results {
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
@@ -66,12 +74,15 @@
             justify-content: center;
             margin: 0.5rem;
             padding: 0;
+            background-color: white;            
+            border-radius: 0.5em;
       }
       .left-side {
             display: flex;
             flex-direction: column;
             width: 250px;
             padding: 1rem;
+            color: black;            
       }
       .ticket-price {
             flex: 1;
@@ -89,21 +100,20 @@
             flex: 1;
             padding: 1rem;
             color: black;
-            background-color: #fff;
-            border-radius: 0.5em;
       }
       .return-aircompany {
             margin-left: 30px;
       }
       .ticket-info {
             display: flex;
+            padding-right: 1rem;
       }
       .ticket-travel {
             padding-inline: 1em;
             flex: 1;
       }
       .ticket-time {
-            padding-inline: 1em;
+            padding-inline: 0;
       }
       .flight-time {
             font-size: 35px;
@@ -119,10 +129,24 @@
       .travel-time {
             text-align: center;
       }
+      .muted {
+            opacity: 0.3;
+      }
+      .card {
+            position: absolute;
+            top: 0;
+            width:100%;
+            height: 100vh;
+      }
+      a.flights-start {
+            text-decoration: none;
+            text-align: center;
+      }
    </style>  
    <script>
             let sessionFlightData = @json(session('currentFlightData'));
             console.log(sessionFlightData); 
             
    </script>
+   </div>
 </div>

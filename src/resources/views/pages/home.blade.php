@@ -2,9 +2,9 @@
 
 @section('content')
 
-{{ now()->format('Y-m-d') }}
+<!-- {{ now()->format('Y-m-d') }} -->
 
-<!-- <h1 style="text-align:center;">Home</h1> -->
+<h2 style="text-align:center; margin-bottom: 30px;" >Booking Form</h2>
 
 @livewire('bookings.flight-search-form')
 @endsection
