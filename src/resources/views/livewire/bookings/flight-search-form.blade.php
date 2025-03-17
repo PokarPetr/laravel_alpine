@@ -4,20 +4,9 @@
         <p>ArrivalAirport => {{ $currentFlightData['arrivalAirport'] }}</p>
         <p>DepartureDate => {{ $currentFlightData['startDate'] }}</p>
         <p>ArrivalDate => {{ $currentFlightData['returnDate'] }}</p>
-        <p>Passangers => {{ $currentFlightData['passangerNumber'] }}</p>
+        <p>Passengers => {{ $currentFlightData['passengerNumber'] }}</p>
     </ul> -->      
-    
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    
-    <form class="flightsearchform" wire:submit.prevent="searchFlights" >
+  <form class="flightsearchform" wire:submit.prevent="searchFlights" >
         @csrf
         
        <div> @livewire('airport-selector' ) </div>       
@@ -27,7 +16,16 @@
         <div>@livewire('passenger-count')</div>
 
         <button type="submit">Find Flights!</button>
-    </form>   
+    </form> 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif  
     <style>
         form.flightsearchform {
             display: grid; 
@@ -48,6 +46,21 @@
 
         form.flightsearchform button {
             margin-bottom: 0;
+        }
+        .alert {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+        .alert-danger ul{
+            list-style: none;
+        }
+        .alert-danger ul li {
+            color: red;
+            padding-inline: 2em;
+            padding-block: 0.75em;
+            background-color:#f8938e;
         }
 
     </style>

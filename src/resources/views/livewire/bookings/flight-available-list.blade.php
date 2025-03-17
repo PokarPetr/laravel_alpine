@@ -3,10 +3,17 @@
        @livewire('bookings.flight-search-form')
       @endif  
       @foreach($flights as $index => $flight)
+      @if( is_array($flight))
         <div class="results">
             <div class="ticket-preview {{ $openCard ? 'muted' : '' }}">
                   <div class="left-side">
                         <p class="ticket-price" >Price {{ $flight['price'] }}</p> 
+                        <p>
+                              <label for="baggage-toggle-{{ $index }}" class="baggage-label">Add baggage(+30 EUR)
+                              <input type="checkbox" id="baggage-toggle-{{ $index }}" wire:model.live="baggageSelected.{{ $index }}">
+                              </label>
+                        </p>
+                        <p class="ticket-price" >Total {{ $flight['total'] }}</p>
                         <a href="#flights-start" class="flights-start">    
                               <button class="button" wire:click="openFlightCard({{  $index  }})">Choose</button>
                         </a>
@@ -53,7 +60,8 @@
                         @endif
                   </div>
             </div>            
-        </div>  
+        </div>
+      @endif  
    @endforeach 
    @if($openCard)
       <div class="card">
@@ -141,6 +149,11 @@
       a.flights-start {
             text-decoration: none;
             text-align: center;
+      }
+      .baggage-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
       }
    </style>  
    <script>
