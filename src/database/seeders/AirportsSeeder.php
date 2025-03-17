@@ -34,7 +34,7 @@ class AirportsSeeder extends Seeder
             ['airport_code' => 'PRN', 'airport_name' => 'Pristina International Airport', 'city' => 'Pristina', 'coordinates' => DB::raw("ST_PointFromText('POINT(42.5722 21.02898)', 4326)")],
             ['airport_code' => 'ZAG', 'airport_name' => 'Franjo Tudman Airport', 'city' => 'Zagreb', 'coordinates' => DB::raw("ST_PointFromText('POINT(45.7423 16.08054)', 4326)")],
             ['airport_code' => 'BTS', 'airport_name' => 'M. R. Stefanik Airport', 'city' => 'Bratislava', 'coordinates' => DB::raw("ST_PointFromText('POINT(48.1700 17.1992)', 4326)")],
-            ['airport_code' => 'LIS', 'airport_name' => 'Lisbon Humberto Delgado Airport', 'city' => 'Lisbon', 'coordinates' => DB::raw("ST_PointFromText('POINT(-9.1349 38.7696)', 4326)")],
+            ['airport_code' => 'LIS', 'airport_name' => 'Lisbon Humberto Delgado Airport', 'city' => 'Lisbon', 'coordinates' => DB::raw("ST_PointFromText('POINT(38.7696 -9.1349)', 4326)")],
             ['airport_code' => 'ATH', 'airport_name' => 'Eleftherios Venizelos Airport', 'city' => 'Athens', 'coordinates' => DB::raw("ST_PointFromText('POINT(37.9364 23.94514)', 4326)")],
             ['airport_code' => 'OSL', 'airport_name' => 'Oslo Gardermoen Airport', 'city' => 'Oslo', 'coordinates' => DB::raw("ST_PointFromText('POINT(60.1932 11.09881)', 4326)")],
             ['airport_code' => 'STN', 'airport_name' => 'London Stansted Airport', 'city' => 'London', 'coordinates' => DB::raw("ST_PointFromText('POINT(51.8892 0.2684)', 4326)")],

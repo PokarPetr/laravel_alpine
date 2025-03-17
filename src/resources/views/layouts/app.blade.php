@@ -19,6 +19,7 @@
             && !event.target.closest('.open-calendar') 
             && !event.target.closest('.open-counter')
             && !event.target.closest('.counter-container')
+            && !event.target.closest('.valid')
          ) {
                 console.log(event.target);
                 Livewire.dispatch('closeModals');

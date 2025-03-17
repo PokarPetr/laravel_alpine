@@ -5,12 +5,14 @@ namespace App\Services;
 use DateTime;
 use Exception;
 use App\Models\FoundFlight;
+use Illuminate\Support\Arr;
 use App\Services\TicketService;
 
 class FoundFlightsService
 {	
 	public $choosenFlight;
 	public $tickets;
+	public $baggage = false;
 
 	public function __construct(TicketService $tickets)
 	{
@@ -20,6 +22,9 @@ class FoundFlightsService
 	public function choosenFlights()
 	{		
 		$this->choosenFlight = session('currentFlightData',[]);
+		$numberPassenger = Arr::get($this->choosenFlight, 'passengerNumber', 1);
+		session(['numberPassenger' => $numberPassenger]);
+		
 		
 		$startDateRaw = $this->choosenFlight['startDate'];
 		$startDate = $this->validateDate($startDateRaw);
@@ -33,12 +38,13 @@ class FoundFlightsService
 		if(!$departureAirport || !$arrivalAirport) return [];
 
 		$startFlights = $this->getFlights($departureAirport, $arrivalAirport, $startDate);
-		$returnFlights = [];
+				$returnFlights = [];
 
 		if(!is_null($returnDate)) {
 			$returnFlights = $this->getFlights($arrivalAirport, $departureAirport, $returnDate);		
 		}
-		$flights = $this->tickets->formTickets($startFlights, $returnFlights);		
+		$flights = $this->tickets->formTickets($startFlights, $returnFlights);
+		 		
 		
 		return $flights;
 	}

@@ -1,13 +1,13 @@
 <div class="calendar-container"> 
     <div class="calender-header">
         <div class="_flex">
-            <select wire:model.change="currentYear" >        
+            <select class="select" wire:model.change="currentYear" >        
                 <option value="{{ $currentYear }}">{{ $currentYear }}</option>
                 @foreach($years as $year)
                     <option value="{{ $year }}">{{ $year }}</option>
                 @endforeach
             </select>
-            <select wire:model.change="currentMonth" >        
+            <select class="select" wire:model.change="currentMonth" >        
                 <option value="{{ $currentMonth }}">{{ $currentMonthName }}</option>
                 @foreach($months as $key => $month)
                     <option value="{{ $key }}">{{ $month }}</option>
@@ -42,12 +42,18 @@
             }
             div.calender-header {          
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
             }
 
             div._flex {
                 display: flex;
+
             }
+
+            ._flex .select {
+                padding-block: 0.75em;
+            }
+            
 
             div.days {
                 display: grid;

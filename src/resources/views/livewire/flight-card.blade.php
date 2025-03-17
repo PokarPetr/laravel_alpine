@@ -5,28 +5,43 @@
     
 
     <div class="ticket-details">
-        <h3>Flight from {{ $flight['startCity'] }} to {{ $flight['returnCity'] }}</h3>
-        <p><strong>Price:</strong> {{ $flight['price'] }} </p>
-        <p><strong>Start Time:</strong> {{ $flight['startTime'] }}</p>
-        <p><strong>{{ $flight['returnTime'] ? "Return Time:" : "" }}</strong> {{ $flight['returnTime'] }}</p>
-
-        
-        <p><strong>Aircompany:</strong> {{ $flight['startAircompany'] }}{{ $flight['returnAircompany'] ? " - " . $flight['returnAircompany'] : ""}}</p>
-        <p><strong>Flight Time:</strong> {{ $flight['startTravel'] }}</p>
-        <p><strong>Airport:</strong> {{ $flight['startAirport'] . " " . "=>" . " " . $flight['returnAirport'] }}</p>
-
-        
-        <div class="baggage-section">
-            <label for="baggage-toggle" class="baggage-label">
-                Add Baggage (+30)
-                <input type="checkbox" id="baggage-toggle" wire:model.live="baggageSelected">
-                <span class="slider"></span>
-            </label>
-            <p><strong>Baggage Fee: </strong><span>{{ $baggageSelected ? 30 : 0 }}</span></p>
+        <h3>Flight from {{ $flight['startCity'] . ' (' . $flight['startAirport'] . ')  to ' . $flight['returnCity'] . ' (' . $flight['returnAirport'] . ') '}}</h3>
+        <div class="date-grid">
+            <div class="date-grid-item"><p>Start Date:</p> <p>{{ $flight['startDate'] }}</p></div>
+            <div class="date-grid-item"><p>Start Time:</p> <p>{{ $flight['startTime'] }}</p></div>
+            <div class="date-grid-item"><p>{{ $flight['returnDate'] ? "Return Date:" : "" }}</p> <p>{{ $flight['returnDate'] }}</p></div>
+            <div class="date-grid-item"><p>{{ $flight['returnTime'] ? "Return Time:" : "" }}</p> <p>{{ $flight['returnTime'] }}</p></div>
+            <p><strong>Flight Time:</strong> {{ $flight['startTravel'] }}</p>
+            <p><strong>Number of passengers:</strong> {{ $number }}</p>
         </div>
+       
+        <h3>{{ $flight['returnAircompany'] ? 'Aircompanies: ' . $flight['startAircompany'] . ' - ' . $flight['returnAircompany']  :  'Aircompany: ' . $flight['startAircompany'] }} </h3>
+        
+       <div class="date-drid">
+        <div class="date-grid-item">
+            <p>Price: {{ $flight['price'] }}</p>
+            <p>Total: {{ $flight['total'] }}</p>
+        </div>
+       </div>
+        
 
         
-        <p><strong>Total Price: </strong>{{ $baggageSelected ? $flight['total'] : $flight['price'] }}</p>
+       
+               
+        {{-- <div class="baggage-section">
+            @for($i = 1; $i <= $number; $i++)
+                <p>
+                    <label for="baggage-toggle" class="baggage-label">Add baggage for passanger {{ $i }} (+30 EUR)
+                    <input type="checkbox" id="baggage-toggle" wire:model.live="baggageSelected">
+                    <span class="slider"></span>
+                    </label>
+                </p>
+            @endfor
+            <p><strong>Baggage Fee: </strong><span>{{ $baggageSelected ? 30 : 0 }}</span></p>
+        </div> --}}
+
+        
+        {{-- <p><strong>Total Price: </strong>{{ $baggageSelected ? $flight['total'] : $flight['price'] }}</p> --}}
 
         
          <div class="go-ahead">
@@ -82,8 +97,23 @@
 
         .ticket-details {
             margin-top: 20px;
+            text-align: center;
         }
-
+        .date-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .date-grid-item {
+            display: flex;
+            justify-content: center;
+        }
+        .date-grid-item p {
+            min-width: 150px;
+            font-weight: 700;
+            margin-block: 0.25rem;
+            text-align: end;
+        }
         .baggage-section {
             margin-top: 20px;
             color: black;

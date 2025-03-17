@@ -2,7 +2,7 @@
     <div class="date-container">
             <div data-test-id="start-date-field">
                 <label for="passenger_number">Number of Passenger</label>
-                <input class="open-counter" type="text" wire:model="passangerNumber" readonly
+                <input class="open-counter" type="text" wire:model="passengerNumber" readonly
                 wire:click="openCounter()"  id="passenger_number"> 
             </div>            
     </div>
@@ -10,14 +10,11 @@
         <div class="calendar-popup "> 
             <div class="counter-container">
                 <div class="counter-header">
-                    <!-- <div class="counter-field">
-                        <button type="button" wire:click="closeCounter">Close</button>
-                    </div> -->
                     <div class="counter-field">
                         <button type="button" wire:click="resetReturnDate">BackToSingle</button>
                     </div>
                 </div>
-                <h1>{{ $passangerNumber }}</h1>            
+                <h1>{{ $passengerNumber }}</h1>            
                 <button type="button" wire:click="increment">+</button>            
                 <button type="button" wire:click="decrement">-</button>            
             </div>

@@ -22,7 +22,6 @@ class TicketService
 	public function formTickets($directs, $returns)
 	{
 		$tickets = [];
-		
 		foreach($directs as $direct){
 			$ticket = [];
 			$ticket['returnTicket'] = false;
