@@ -1,15 +1,15 @@
 <nav class="top-navigation">
-    <a href="/home" class="logo">
+    <a href="{{ route('home')}}" class="logo">
         <span><!-- SVG --></span>        
         <span>TicketBooking</span>
     </a>
-    <a href="/calendar" class="nav-link current">Calendar</a>
+    {{-- <a href="#"></a>
     @if($user)
         <a href="/profile" class="nav-link">{{ $user->name }}</a>
     @else 
         <a href="/login" class="nav-link">Login</a>
     @endif
-    <a href="{{ route('flight-available-list') }}" class="nav-link">Support</a>
+    <a href="{{ route('flight-available-list') }}" class="nav-link">Support</a> --}}
 </nav>
 
 <style>
