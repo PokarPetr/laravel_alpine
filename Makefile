@@ -30,6 +30,8 @@ start-install:
 	@echo "Waiting for MySQL to be ready..."
 	sleep 10
 	docker-compose run --rm artisan migrate
+	@echo "Waiting for migrations..."
+	sleep 5
 	docker-compose run --rm artisan db:seed --class=SeatsSeeder
 	docker-compose run --rm artisan db:seed --class=AirportsSeeder
 	docker-compose run --rm artisan db:seed --class=AircraftsSeeder

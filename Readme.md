@@ -41,15 +41,21 @@ Before getting started, make sure you have the following tools installed:
    ```bash
         mkdir -p ./src/storage/framework/views
         mkdir -p ./src/storage/framework/sessions
-        mkdir -p ./src/storage/framework/cache
+        mkdir -p ./src/storage/framework/cache	
         chown -R $(whoami):$(whoami) ./src/storage
         chmod -R 777 ./src/storage
-        docker-compose run --rm composer install
+        chown -R $(whoami):$(whoami) ~/.docker
+        sudo chmod -R 777 ~/.docker
+        docker-compose run --rm --entrypoint="" composer composer clear-cache
+        docker-compose run --rm --entrypoint="" composer composer install
+        docker-compose run --rm node npm cache clean --force
+        docker-compose run --rm node npm install
         docker-compose up -d nginx
         docker-compose run --rm artisan migrate
         docker-compose run --rm artisan db:seed --class=SeatsSeeder
         docker-compose run --rm artisan db:seed --class=AirportsSeeder
         docker-compose run --rm artisan db:seed --class=AircraftsSeeder
+        docker-compose run --rm artisan db:seed --class=AircompanySeeder
     ```
 
 5. **Access the application:**
@@ -113,15 +119,21 @@ Before getting started, make sure you have the following tools installed:
     ```bash
         mkdir -p ./src/storage/framework/views
         mkdir -p ./src/storage/framework/sessions
-        mkdir -p ./src/storage/framework/cache
+        mkdir -p ./src/storage/framework/cache	
         chown -R $(whoami):$(whoami) ./src/storage
         chmod -R 777 ./src/storage
-        docker-compose run --rm composer install
-        docker-compose up -d nginx
-        docker-compose run --rm artisan migrate
+        chown -R $(whoami):$(whoami) ~/.docker
+        sudo chmod -R 777 ~/.docker
+        docker-compose run --rm --entrypoint="" composer composer clear-cache
+        docker-compose run --rm --entrypoint="" composer composer install
+        docker-compose run --rm node npm cache clean --force
+        docker-compose run --rm node npm install
+        docker-compose up -d nginx        
+        docker-compose run --rm artisan migrate        
         docker-compose run --rm artisan db:seed --class=SeatsSeeder
         docker-compose run --rm artisan db:seed --class=AirportsSeeder
         docker-compose run --rm artisan db:seed --class=AircraftsSeeder
+        docker-compose run --rm artisan db:seed --class=AircompanySeeder
     ```
 
 5. **Доступ к приложению:**
