@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Bookings;
 
-use ReflectionClass;
-
 use Carbon\Carbon;
-use Livewire\Component;
+
+use ReflectionClass;
 use App\Models\Airport;
+use Livewire\Component;
 use App\Models\FoundFlight;
 use App\Services\AirportService;
+use Illuminate\Support\Facades\Config;
 use App\Services\CreateFakeFlightService;
-use App\Services\FlightValidationService;
+use App\Services\ValidationService;
 use Livewire\Features\SupportRedirects\Redirector;
 
 
@@ -35,7 +36,7 @@ class FlightSearchForm extends Component
             'arrivalAirport' => 'airportCode',
             'startDate' => 'flightDateTime',
             'returnDate' => 'flightDateTime',
-            'passangerNumber' => 'passangerNumber',            
+            'passengerNumber' => 'passengerNumber',            
         ];
         $this->currentFlightData = [
             'departureAirportId' => session('departureAirportId', ''),
@@ -44,7 +45,7 @@ class FlightSearchForm extends Component
             'arrivalAirport' => session('arrivalAirport', ''),
             'startDate' => session('startDate', ''),
             'returnDate' => session('returnDate', ''),
-            'passangerNumber' => session('passangerNumber', 1),  
+            'passengerNumber' => session('passengerNumber', 1),  
         ];
                    
     }
@@ -81,17 +82,19 @@ class FlightSearchForm extends Component
         return '';        
     }
 
-    public function passangerNumber($passangerNumberData): int
+    public function passengerNumber($passengerNumberData): int
     {
-        if (isset($passangerNumberData['property'])){
-            return $passangerNumberData['value'];
+        if (isset($passengerNumberData['property'])){
+            return $passengerNumberData['value'];
         }
         return 1;        
     }
     
-    public function searchFlights(FlightValidationService $validation, CreateFakeFlightService $fakeFlight): Redirector|null
+    public function searchFlights(ValidationService $validation, CreateFakeFlightService $fakeFlight): Redirector|null
     {  
-        $validationResult = $validation->validate($this->currentFlightData);
+        $rules = Config::get('validation.flights.rules');
+        $messages = Config::get('validation.flights.messages');
+        $validationResult = $validation->validate($this->currentFlightData, $rules, $messages);
 
         if ($validationResult !== true) {
             foreach ($validationResult->getMessages() as $key => $messages) {
@@ -103,7 +106,8 @@ class FlightSearchForm extends Component
         }
        
         $fakeFlight->createFakeFlight($this->currentFlightData);
-        session(['currentFlightData' => $this->currentFlightData], 120);
+        session(['currentFlightData' => $this->currentFlightData]);
+        session(['passengerNumber' => $this->currentFlightData['passengerNumber']]);
         return redirect()->route('flight-available-list');
     }
 

@@ -8,20 +8,19 @@ class FlightCard extends Component
 {
 
     public $flight;
-    public $baggageSelected = false;
+    public $number;
 
     public function mount($flight)
     {
         $this->flight = $flight;
-    }
-    
-    public function updatedBaggageSelected($value)
-    {
-        $this->baggageSelected = $value ? true : false;
-        $addFee = $value ? 30 : 0;
-        $this->flight['total'] = $this->flight['price'] + $addFee;        
-        $this->flight['baggage'] = $value ? true : false;
-        $this->flight['baggageFee'] = $value ? 30 : 0;
+        $this->number = session('passengerNumber', 1);
+    } 
+
+    public function goAhead()
+    {        
+        session(['flightData' => $this->flight]);
+        
+        return redirect()->route('booking-form');
     }
 
     public function render()

@@ -21,11 +21,12 @@ start-install:
 	chmod -R 777 ./src/storage
 	chown -R $(whoami):$(whoami) ~/.docker
 	sudo chmod -R 777 ~/.docker
-	docker-compose run --rm composer clear-cache
-	docker-compose run --rm composer install
+	docker-compose run --rm --entrypoint="" composer composer clear-cache
+	docker-compose run --rm --entrypoint="" composer composer install
 	docker-compose run --rm node npm cache clean --force
 	docker-compose run --rm node npm install
 	docker-compose up -d nginx
+	@echo "Build version 1.1"
 	@echo "Waiting for MySQL to be ready..."
 	sleep 10
 	docker-compose run --rm artisan migrate
